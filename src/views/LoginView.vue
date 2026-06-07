@@ -1,183 +1,232 @@
 <template>
-  <div class="login-container">
-    <div class="login-card">
-      <div class="logo-tag">FRESHMAN GUIDE</div>
+  <div class="login-page">
+    <!-- Cinematic hero background -->
+    <div class="login-hero">
+      <div class="hero-gradient"></div>
+      <div class="login-card">
+        <!-- Cavallino mark -->
+        <div class="brand-mark">
+          <span class="brand-text">HLJIT</span>
+        </div>
 
-      <h1 class="school-title">黑龙江工程学院</h1>
+        <p class="section-label">FRESHMAN GUIDE</p>
+        <h1 class="hero-title">黑龙江工程学院</h1>
+        <p class="hero-sub">新生智慧导航系统</p>
 
-      <p class="system-title">新生智慧导航系统</p>
+        <div class="form-group">
+          <label class="form-label">姓名</label>
+          <input v-model="name" placeholder="请输入姓名" class="form-input" />
+        </div>
 
-      <div class="form-group">
-        <label>姓名</label>
-        <input v-model="name" placeholder="请输入姓名" />
+        <div class="form-group">
+          <label class="form-label">学号</label>
+          <input v-model="studentId" placeholder="请输入学号" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">学院</label>
+          <select v-model="college" class="form-input form-select">
+            <option value="">请选择学院</option>
+            <option>土木与建筑工程学院</option>
+            <option>测绘工程学院</option>
+            <option>机电工程学院</option>
+            <option>汽车与交通工程学院</option>
+            <option>电气与信息工程学院</option>
+            <option>计算机科学与技术学院</option>
+            <option>经济管理学院</option>
+            <option>艺术与设计学院</option>
+            <option>外国语学院</option>
+            <option>人文与社会科学学院</option>
+            <option>理学院</option>
+            <option>马克思主义学院</option>
+            <option>继续教育学院</option>
+          </select>
+        </div>
+
+        <button class="cta-primary" @click="enterSystem">
+          进入校园
+        </button>
+
+        <div class="login-footer">HEILONGJIANG INSTITUTE OF TECHNOLOGY</div>
       </div>
-
-      <div class="form-group">
-        <label>学号</label>
-        <input v-model="studentId" placeholder="请输入学号" />
-      </div>
-
-      <div class="form-group">
-        <label>学院</label>
-        <select v-model="college">
-          <option value="">请选择学院</option>
-
-          <option>土木与建筑工程学院</option>
-          <option>机电工程学院</option>
-          <option>汽车与交通工程学院</option>
-          <option>测绘工程学院</option>
-          <option>计算机科学与技术学院</option>
-          <option>材料科学与工程学院</option>
-        </select>
-      </div>
-
-      <button class="enter-btn" @click="enterSystem">进入校园 →</button>
-
-      <div class="footer">HEILONGJIANG INSTITUTE OF TECHNOLOGY</div>
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useStudentStore } from '@/stores/student'
 
-const router = useRouter();
+const router = useRouter()
+const studentStore = useStudentStore()
 
-const name = ref("");
-const studentId = ref("");
-const college = ref("");
+const name = ref('')
+const studentId = ref('')
+const college = ref('')
 
 function enterSystem() {
   if (!name.value || !studentId.value || !college.value) {
-    alert("请填写完整信息");
-    return;
+    alert('请填写完整信息')
+    return
   }
-
-  localStorage.setItem(
-    "studentInfo",
-    JSON.stringify({
-      name: name.value,
-      studentId: studentId.value,
-      college: college.value,
-    }),
-  );
-
-  router.push("/home");
+  studentStore.save(name.value, studentId.value, college.value)
+  router.push('/dashboard')
 }
 </script>
+
 <style scoped>
-.login-container {
+.login-page {
   width: 100vw;
   height: 100vh;
-
-  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-
+  background: var(--bg-canvas);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.login-hero {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Subtle dark gradient atmosphere — Ferrari-style */
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #3c3c3c00 0%, #181818 100%);
+  pointer-events: none;
 }
 
 .login-card {
   width: 90%;
-  max-width: 420px;
-
-  padding: 32px;
-
-  background: rgba(24, 24, 24, 0.95);
-
-  border: 1px solid #303030;
-
-  border-radius: 20px;
+  max-width: 400px;
+  padding: var(--sp-lg) var(--sp-md);
+  background: var(--bg-canvas-elevated);
+  position: relative;
+  z-index: 1;
 }
 
-.logo-tag {
-  color: #da291c;
-
-  font-size: 12px;
-
-  letter-spacing: 4px;
-
-  margin-bottom: 10px;
+.brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sp-sm);
 }
 
-.school-title {
-  color: white;
-
-  margin: 0;
-
-  font-size: 34px;
+.brand-text {
+  font: var(--font-display-mega);
+  color: var(--primary);
+  letter-spacing: -1.6px;
 }
 
-.system-title {
-  color: #888;
+/* Section label — Ferrari caption-uppercase */
+.section-label {
+  font: var(--font-caption-uppercase);
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: var(--sp-xxs);
+}
 
-  margin-top: 8px;
+.hero-title {
+  font: var(--font-display-xl);
+  color: var(--text-ink);
+  text-align: center;
+  margin: 0 0 var(--sp-xxxs);
+  letter-spacing: -0.36px;
+}
 
-  margin-bottom: 30px;
+.hero-sub {
+  font: var(--font-body-md);
+  color: var(--text-muted);
+  text-align: center;
+  margin: 0 0 var(--sp-md);
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: var(--sp-xs);
 }
 
-.form-group label {
+.form-label {
   display: block;
-
-  color: #888;
-
-  margin-bottom: 8px;
-
-  font-size: 12px;
+  font: var(--font-caption-uppercase);
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--text-body);
+  margin-bottom: var(--sp-xxxs);
 }
 
-input,
-select {
+.form-input {
   width: 100%;
-
-  height: 52px;
-
-  background: #2a2a2a;
-
-  border: 1px solid #3a3a3a;
-
-  color: white;
-
-  padding: 0 15px;
-
-  box-sizing: border-box;
-
-  border-radius: 10px;
+  height: var(--cta-height);
+  background: var(--bg-canvas);
+  border: 1px solid var(--hairline);
+  color: var(--text-ink);
+  padding: 0 var(--sp-xs);
+  font: var(--font-body-md);
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-.enter-btn {
-  width: 100%;
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
 
-  height: 56px;
+.form-input::placeholder {
+  color: var(--text-muted);
+}
 
-  margin-top: 10px;
-
-  border: none;
-
-  border-radius: 12px;
-
-  background: #da291c;
-
-  color: white;
-
-  font-size: 16px;
-
-  font-weight: 700;
-
+.form-select {
   cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
 }
 
-.footer {
+.form-select option {
+  background: var(--bg-canvas-elevated);
+  color: var(--text-ink);
+}
+
+/* Primary CTA — Rosso Corsa, sharp corners, uppercase, 1.4px tracking */
+.cta-primary {
+  width: 100%;
+  height: var(--cta-height);
+  margin-top: var(--sp-xxs);
+  border: none;
+  background: var(--primary);
+  color: var(--text-on-primary);
+  font: var(--font-button);
+  letter-spacing: var(--font-button-spacing);
+  text-transform: var(--font-button-transform);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cta-primary:hover {
+  background: var(--primary-active);
+}
+
+.cta-primary:active {
+  background: var(--primary-hover);
+}
+
+.login-footer {
   text-align: center;
-
-  margin-top: 20px;
-
-  color: #666;
-
-  font-size: 12px;
+  margin-top: var(--sp-sm);
+  font: var(--font-caption-uppercase);
+  letter-spacing: 1.1px;
+  color: var(--text-muted);
 }
 </style>

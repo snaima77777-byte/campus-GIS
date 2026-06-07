@@ -1,86 +1,162 @@
-/* color palette from <https://github.com/vuejs/theme> */
+/* ========================================
+   Campus GIS — Ferrari-Inspired Design System
+   Adapted from Ferrari Marketing Design Language
+   ======================================== */
+
+/* ----- Color Tokens ----- */
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  /* Brand accent — Rosso Corsa racing red, used scarcely */
+  --primary: #da291c;
+  --primary-active: #b01e0a;
+  --primary-hover: #9d2211;
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+  /* Surface — near-black canvas, never pure black */
+  --bg-canvas: #181818;
+  --bg-canvas-elevated: #303030;
+  --bg-canvas-light: #ffffff;
 
-  --vt-c-indigo: #2c3e50;
+  /* Surface cards — same as elevated */
+  --bg-surface: #303030;
+  --bg-surface-raised: #3c3c3c;
+  --bg-surface-soft-light: #f7f7f7;
+  --bg-overlay: rgba(0, 0, 0, 0.65);
 
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+  /* Text */
+  --text-ink: #ffffff;
+  --text-body: #969696;
+  --text-body-strong: #ffffff;
+  --text-body-on-light: #181818;
+  --text-muted: #666666;
+  --text-muted-soft: #8f8f8f;
+  --text-on-primary: #ffffff;
 
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  /* Semantic */
+  --semantic-info: #4c98b9;
+  --semantic-success: #03904a;
+  --semantic-warning: #f13a2c;
+
+  /* Hairlines */
+  --hairline: #303030;
+  --hairline-on-light: #d2d2d2;
+  --hairline-soft: #ebebeb;
+
+  /* ----- Typography ----- */
+  /* FerrariSans fallback: Inter at weight 500 for display */
+  --font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', -apple-system, system-ui, sans-serif;
+
+  /* Display — weight 500, never bold. Cinematic photography carries the visual weight. */
+  --font-display-mega: 500 48px/1.05 var(--font-family);
+  --font-display-xl: 500 36px/1.1 var(--font-family);
+  --font-display-lg: 500 28px/1.2 var(--font-family);
+  --font-display-md: 500 22px/1.5 var(--font-family);
+
+  /* Titles */
+  --font-title-md: 700 16px/1.2 var(--font-family);
+  --font-title-sm: 500 14px/1.4 var(--font-family);
+
+  /* CTA / Button — uppercase, 1.4px tracking */
+  --font-button: 700 14px/1.0 var(--font-family);
+  --font-button-spacing: 1.4px;
+  --font-button-transform: uppercase;
+
+  /* Nav link — uppercase, 0.65px tracking */
+  --font-nav: 600 11px/1.4 var(--font-family);
+  --font-nav-spacing: 0.65px;
+
+  /* Body — weight 400 */
+  --font-body-md: 400 14px/1.5 var(--font-family);
+  --font-body-sm: 400 13px/1.5 var(--font-family);
+
+  /* Captions */
+  --font-caption: 400 11px/1.4 var(--font-family);
+  --font-caption-uppercase: 600 10px/1.4 var(--font-family);
+
+  /* Label — uppercase with tracking */
+  --font-label: 600 10px/1.4 var(--font-family);
+  --font-label-spacing: 1.1px;
+  --font-label-transform: uppercase;
+
+  /* Number display for stats */
+  --font-number: 700 48px/1.0 var(--font-family);
+
+  /* ----- Spacing (explicit 8px ladder) ----- */
+  --sp-xxxs: 4px;
+  --sp-xxs: 8px;
+  --sp-xs: 16px;
+  --sp-sm: 24px;
+  --sp-md: 32px;
+  --sp-lg: 48px;
+  --sp-xl: 64px;
+  --sp-xxl: 96px;
+  --sp-super: 128px;
+
+  /* ----- Geometry — sharp by default ----- */
+  --radius-none: 0px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* ----- Sizing ----- */
+  --sidebar-width: 56px;
+  --topbar-height: 48px;
+  --control-panel-width: 360px;
+  --cta-height: 48px;
 }
 
-/* semantic color variables for this project */
-:root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
-
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
-
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
-
-  --section-gap: 160px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-  }
-}
-
+/* ----- Global Reset ----- */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
-  font-weight: normal;
+  padding: 0;
 }
 
-body {
-  min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
-  line-height: 1.6;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
-  font-size: 15px;
-  text-rendering: optimizeLegibility;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-canvas);
+  color: var(--text-body);
+  font: var(--font-body-md);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+/* ----- Scrollbar — hairline thin ----- */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--hairline);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--hairline) var(--bg-canvas);
+}
+
+/* ----- Base interactive ----- */
+a {
+  color: var(--text-ink);
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 1px solid var(--primary);
+  outline-offset: 2px;
 }
